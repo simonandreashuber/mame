@@ -1,14 +1,16 @@
+#include <iostream>
+#include <vector>
 
 class ime
 {
 private:
-
-
-
-
+	std::vector<int> m_expo_list;
 
 public:
 
+	ime(std::vector<int> expo_list)
+		: m_expo_list(expo_list)
+	{}
 
 
 
@@ -20,6 +22,9 @@ public:
 
 int main()
 {
+	std::vector<int> test_vector = { 1,2,3 };
+	ime test(test_vector);
+
 	/*
 	this is how the code should be useable:
 
