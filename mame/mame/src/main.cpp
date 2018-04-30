@@ -33,7 +33,7 @@ private:
 		return log(antilogarithm) / log(base);
 	}
 
-	bool m_sn_bigeq_y(size_t n_start, int o) const
+	bool m_sn_bigeq_y(size_t n_start, int o)/*not approved*/ const
 	{
 		// sn >= o
 		double o_log = o;
@@ -47,7 +47,7 @@ private:
 		return false;
 	}
 
-	int m_mod(const int& y, size_t n) const
+	int m_mod(const int& y, size_t n)/*not approved*/ const
 	{
 		if (m_sn_bigeq_y(n + 1, y) == false)
 		{
