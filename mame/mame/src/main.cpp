@@ -7,10 +7,10 @@ class ime
 private:
 	std::vector<int> m_expo_list;
 	
-	int m_powmod(int base,int expo,int devisor)
+	int m_powmod(int base,int expo,int devisor) const
 	{
 		base %= devisor;
-		unsigned long long int result = 1;
+		int result = 1;
 
 		while (expo > 0) {
 			if (expo & 1)
@@ -28,17 +28,32 @@ private:
 		*/
 	}
 
-
-	int m_mod(const int& devisor, size_t expo_stage) const
+	double m_log(double base, double antilogarithm) const
 	{
-		bool* t_register = new bool[devisor];
-		memset(t_register, false, devisor);
+		return log(antilogarithm) / log(base);
+	}
+
+	int m_mod(const int& y, size_t expo_stage) const
+	{
+		/*check if sn+1 >= y >= o
+		double  y_comp = y;
+		for (size_t expo_stage_comp = expo_stage + 1; expo_stage_comp < m_expo_list.size(); expo_stage_comp++, y_comp = m_log(m_expo_list[expo_stage_comp], y_comp))
+		{
+			if (m_expo_list[expo_stage_comp] >= (int)y_comp + 1)
+			{
+				return powmod();
+			}
+		}
+		*/
+
+		bool* t_register = new bool[y];
+		memset(t_register, false, y);
 
 		int td = 1;
 		int d = 0;
 		while (true)
 		{
-			td = (td * m_expo_list[expo_stage]) % devisor;
+			td = (td * m_expo_list[expo_stage]) % y;
 			d++;
 
 			if (t_register[td] == false)
@@ -53,12 +68,11 @@ private:
 				int o = 0;
 				while (true)
 				{
-					to = (to * m_expo_list[expo_stage]) % devisor;
+					to = (to * m_expo_list[expo_stage]) % y;
 					o++;
 
 					if (to == td)
 					{
-						//check if sn+1 >= o
 						int l = d - o;
 						int  mw = m_mod(l, expo_stage++);
 						//mw -> tw
@@ -86,7 +100,7 @@ public:
 	}
 };
 
-int powmod(int base, int expo, int devisor)
+int powmod(int base, int expo, int devisor) //testing
 {
 	base %= devisor;
 	unsigned long long int result = 1;
@@ -109,9 +123,9 @@ int powmod(int base, int expo, int devisor)
 
 int main()
 {
-	//basic test 
-	int test_int = 1999;
-	int test_int_fermat = 1998;
+	//testing 
+	int test_int = 13;
+	int test_int_fermat = 12;
 	std::vector<int> test_expo_list = {2,2,2,2};
 	std::vector<int> test_expo_list_fermat = {2,2,2};
 	ime test_ime(test_expo_list);
@@ -119,8 +133,6 @@ int main()
 
 	std::cout << test_ime % test_int <<  std::endl;
 	std::cout << powmod(2, test_ime_fermat % test_int_fermat, test_int) << std::endl;
-
-
 
 
 
