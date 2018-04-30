@@ -5,7 +5,7 @@
 class ime
 {
 private:
-	std::vector<int> m_expo_list;
+	std::vector<int> m_s0;
 	
 	int m_powmod(int base,int expo,int devisor) const
 	{
@@ -33,18 +33,31 @@ private:
 		return log(antilogarithm) / log(base);
 	}
 
-	int m_mod(const int& y, size_t expo_stage) const
+	bool m_sn_bigeq_y(size_t n_start, int o) const
 	{
-		/*check if sn+1 >= y >= o
-		double  y_comp = y;
-		for (size_t expo_stage_comp = expo_stage + 1; expo_stage_comp < m_expo_list.size(); expo_stage_comp++, y_comp = m_log(m_expo_list[expo_stage_comp], y_comp))
+		// sn >= o
+		double o_log = o;
+		for (size_t n = n_start; n < m_s0.size(); o_log = m_log(m_s0[n], o_log), n++)
 		{
-			if (m_expo_list[expo_stage_comp] >= (int)y_comp + 1)
+			if (m_s0[n] >= (int)o_log + 1)
 			{
-				return powmod();
+				return true;
 			}
 		}
-		*/
+		return false;
+	}
+
+	int m_mod(const int& y, size_t n) const
+	{
+		if (m_sn_bigeq_y(n + 1, y) == false)
+		{
+			int mw_iteratior = 1;
+			for (size_t n_iterator = m_s0.size() - 1; n_iterator >= n; n_iterator--)
+			{
+			//not finished
+			}
+
+		}
 
 		bool* t_register = new bool[y];
 		memset(t_register, false, y);
@@ -53,7 +66,7 @@ private:
 		int d = 0;
 		while (true)
 		{
-			td = (td * m_expo_list[expo_stage]) % y;
+			td = (td * m_s0[n]) % y;
 			d++;
 
 			if (t_register[td] == false)
@@ -68,13 +81,13 @@ private:
 				int o = 0;
 				while (true)
 				{
-					to = (to * m_expo_list[expo_stage]) % y;
+					to = (to * m_s0[n]) % y;
 					o++;
 
 					if (to == td)
 					{
 						int l = d - o;
-						int  mw = m_mod(l, expo_stage++);
+						int  mw = m_mod(l, n++);
 						//mw -> tw
 					}
 				}
@@ -86,7 +99,7 @@ private:
 public:
 
 	ime(std::vector<int> expo_list)
-		: m_expo_list(expo_list){}
+		: m_s0(expo_list){}
 	
 	int mod(const int& devisor) const
 	{
