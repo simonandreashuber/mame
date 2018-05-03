@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "mane.h"
 
 
@@ -65,18 +67,29 @@ int main()
 	ime test_ime_fermat(test_expo_list_fermat);
 
 
-	for (unsigned long long int i = 13; i < 20000; i++)
+	for (unsigned long long int i = 13; i < 1000; i++)
 	{
 		if (primetest_bruteforce(i))
 		{
-			if (((test_ime % i) + 23)  % i == 0)
+			if (((test_ime % i) + 23)  % i == 0) /* raw */
 			{
 				std::cout << i << std::endl;
 			}
-			if ((powmod(10, test_ime_fermat % (i - 1), i) + 23) % i == 0)
+			if ((powmod(10, test_ime_fermat % (i - 1), i) + 23) % i == 0) /* fermat */
 			{
 				std::cout << i << std::endl;
+
+				unsigned long long int i_pow = i * i;
+				unsigned long long int pow = 2;
+				while (((test_ime % i_pow) + 23) % i_pow == 0)
+				{
+					i_pow = i_pow * i;
+					pow++;
+				}
+				std::cout << "power: " << pow-- << std::endl;
 			}
+
+			
 		}
 	}
 
