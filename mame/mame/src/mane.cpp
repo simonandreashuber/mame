@@ -84,6 +84,7 @@ unsigned long long int ime::m_d(unsigned long long int n, unsigned long long int
 {
 	if (y == 1)
 	{
+		std::cout << "y = 1" << std::endl;
 		return 1;
 	}
 
@@ -151,36 +152,66 @@ unsigned long long int ime::m_o(unsigned long long int n, unsigned long long int
 //main
 unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long int y)
 {
-	//error: n > n_max
-	if (n > m_s0.size() - 1)
-	{
-		std::cout << "n > n_max" << std::endl;
-		return 0;
-	}
-	//if sn = smax
-	if (n == m_s0.size() - 1)
-	{
-		return m_s0[n] % y;
-	}
-
 	//if y == 0 then integer = 0 mod 1
 	if (y == 1)
 	{
+		//std::cout << "y == 0" << std::endl;
 		return 0;
 	}
 
+	//if sn = smax
+	if (n == m_s0.size() - 1)
+	{
+		std::cout << "smax" << std::endl;
+		return m_s0[n] % y;
+	}
 
 	//if sn+1 =< y
 	if (m_ime_soe_int(n + 1, y))
 	{
+		//std::cout << "sn+1 =< y" << std::endl;
 		return m_powmod(m_s0[n], m_sn(n + 1), y);
 	}
 
-	unsigned long long int d = m_d(n, y);
-	unsigned long long int td = m_td(n, y);
-	unsigned long long int o = m_o(n, y, td);
+	//d and td
+	bool* t_register = new bool[y];
+	memset(t_register, 0, y);
+
+	unsigned long long int d = 0;
+	unsigned long long int td = 1;
+	while (true)
+	{
+		if (t_register[td] == 0)
+		{
+			t_register[td] = 1;
+		}
+		else
+		{
+			delete[] t_register;
+			break;
+		}
+		d++;
+		td = (td * m_s0[n]) % y;
+	}
+	
+	//o
+	unsigned long long int o = 0;
+	unsigned long long int to = 1;
+	while (true)
+	{
+		if (to == td)
+		{
+			break;
+		}
+
+		o++;
+		to = (to * m_s0[n]) % y;
+	}
+	
+	//l
 	unsigned long long int l = d - o;
 
+	//recursion
 	unsigned long long int mw = m_mod(n + 1, l);
 
 	unsigned long long int tw = m_mw_tw(n, mw, o, d, l, y);

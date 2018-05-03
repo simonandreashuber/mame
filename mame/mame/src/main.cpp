@@ -59,19 +59,23 @@ bool primetest_bruteforce(unsigned long long int integer)
 int main()
 {
 	//testing
-	std::vector<unsigned long long int> test_expo_list = { 10,10,10,10,10,10,10,10 };
-	std::vector<unsigned long long int> test_expo_list_fermat = { 10,10,10,10,10,10,10 };
+	std::vector<unsigned long long int> test_expo_list = { 10,10,10 };
+	std::vector<unsigned long long int> test_expo_list_fermat = { 10,10 };
 	ime test_ime(test_expo_list);
 	ime test_ime_fermat(test_expo_list_fermat);
 
 
-	for (unsigned long long int i = 13; i < 10000; i++)
+	for (unsigned long long int i = 13; i < 20000; i++)
 	{
 		if (primetest_bruteforce(i))
 		{
-			if ((test_ime % i) != powmod(10, test_ime_fermat % (i - 1), i))
+			if (((test_ime % i) + 23)  % i == 0)
 			{
-				std::cout << "error, fermat: " << powmod(2, test_ime_fermat % (i - 1), i) << ", classic: " << (test_ime % i) << ", integer: " << i << std::endl;
+				std::cout << i << std::endl;
+			}
+			if ((powmod(10, test_ime_fermat % (i - 1), i) + 23) % i == 0)
+			{
+				std::cout << i << std::endl;
 			}
 		}
 	}
