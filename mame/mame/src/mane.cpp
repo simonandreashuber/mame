@@ -1,8 +1,7 @@
 #include "mane.h"
 
 //private
-//private 0 depend
-unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long long int expo, unsigned long long int devisor)
+unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long long int expo, unsigned long long int devisor)/*base^expo mod devisor*/
 {
 	unsigned long long int base_mod = base % devisor;
 	unsigned long long int general_prod = 1;
@@ -24,23 +23,12 @@ unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long 
 	return general_prod;
 }
 
-double ime::m_log(double base, double antilog)
+double ime::m_log(double base, double antilog)/*log with custom base*/
 {
 	double ret_log = log(antilog) / log(base);
 	return ret_log;
 }
 
-unsigned long long int ime::m_pow(unsigned long long int base, unsigned long long int expo)
-{
-	unsigned long long int power = 1;
-	for (unsigned long long int i = 0; i < expo; i++)
-	{
-		power = power * base;
-	}
-	return power;
-}
-
-//private 1 depend
 bool ime::m_sn_soe_int(unsigned long long int sn_index, unsigned long long int integer)/*sn <= interger*/
 {
 	double int_log = integer;
@@ -56,39 +44,45 @@ bool ime::m_sn_soe_int(unsigned long long int sn_index, unsigned long long int i
 	return true;
 }
 
-unsigned long long int ime::m_sn(unsigned long long int sn_index)
+unsigned long long int ime::m_pow(unsigned long long int base, unsigned long long int expo)/*base^expo to int*/
+{
+	unsigned long long int power = 1;
+	for (unsigned long long int i = 0; i < expo; i++)
+	{
+		power = power * base;
+	}
+	return power;
+}
+
+unsigned long long int ime::m_sn(unsigned long long int sn_index)/*sn to interger*/
 {
 	unsigned long long int sn = 1;
 	for (unsigned long long int n = m_s0.size() - 1; n > sn_index; n--)
 	{
 		sn = m_pow(m_s0[n], sn);
 	}
-	sn = m_pow(m_s0[sn_index], sn); // avoid unsigned overflow/neg. numbers
+	sn = m_pow(m_s0[sn_index], sn); /* avoid n overflow (unsigned, so no neg numbers) */
 	return sn;
 }
 
-//main
 unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long int y)
 {
 	//if y == 0 then integer = 0 mod 1
 	if (y == 1)
 	{
-		//std::cout << "y == 0" << std::endl;
 		return 0;
 	}
 
 	//if sn = smax
 	if (n == m_s0.size() - 1)
 	{
-		//std::cout << "smax" << std::endl;
 		return m_s0[n] % y;
 	}
 
 	//if sn+1 =< y
 	if (m_sn_soe_int(n + 1, y))
 	{
-		//std::cout << "sn+1 =< y" << std::endl;
-		return m_powmod(m_s0[n], m_sn(n + 1), y);
+		return m_powmod(m_s0[n], m_sn(n + 1), y + 100); //the 100 are just for savety, bacause of raounding errors
 	}
 
 	//d and td
@@ -149,16 +143,6 @@ unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long i
 
 	return tw;
 	
-	/*
-	for (unsigned long long int w = o; w < d; w++)
-	{
-		if (mw == w % l)
-		{
-			unsigned long long int tw = m_powmod(m_s0[n], w, y);
-			return tw;
-		}
-	}
-	*/
 }
 
 //public
