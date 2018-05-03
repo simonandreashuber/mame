@@ -1,6 +1,8 @@
 # mame
 ## Modular Arithmetic with Multiple Exponents
 
+## usage
+
 ---
 
 ## Questions & Feedback
