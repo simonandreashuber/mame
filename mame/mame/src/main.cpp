@@ -59,8 +59,8 @@ bool primetest_bruteforce(unsigned long long int integer)
 int main()
 {
 	//testing
-	std::vector<unsigned long long int> test_expo_list = { 10,10,10 };
-	std::vector<unsigned long long int> test_expo_list_fermat = { 10,10 };
+	std::vector<unsigned long long int> test_expo_list = { 10,10,10,10,10,10,10,10,10,10 };
+	std::vector<unsigned long long int> test_expo_list_fermat = { 10,10,10,10,10,10,10,10,10 };
 	ime test_ime(test_expo_list);
 	ime test_ime_fermat(test_expo_list_fermat);
 

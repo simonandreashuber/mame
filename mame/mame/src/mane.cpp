@@ -41,7 +41,7 @@ unsigned long long int ime::m_pow(unsigned long long int base, unsigned long lon
 }
 
 //private 1 depend
-bool ime::m_ime_soe_int(unsigned long long int sn_index, unsigned long long int integer)
+bool ime::m_sn_soe_int(unsigned long long int sn_index, unsigned long long int integer)/*sn <= interger*/
 {
 	double int_log = integer;
 	while (sn_index < m_s0.size())
@@ -67,88 +67,6 @@ unsigned long long int ime::m_sn(unsigned long long int sn_index)
 	return sn;
 }
 
-//private multible depend
-unsigned long long int ime::m_mw_tw(unsigned long long int n, unsigned long long int mw, unsigned long long int o, unsigned long long int d, unsigned long long int l, unsigned long long int y)
-{
-	for (unsigned long long int w = o; w < d; w++)
-	{
-		if (mw == w % l)
-		{
-			unsigned long long int tw = m_powmod(m_s0[n], w, y);
-			return tw;
-		}
-	}
-}
-
-unsigned long long int ime::m_d(unsigned long long int n, unsigned long long int y)
-{
-	if (y == 1)
-	{
-		std::cout << "y = 1" << std::endl;
-		return 1;
-	}
-
-	bool* t_register = new bool[y];
-	memset(t_register, 0, y);
-
-	unsigned long long int d = 0;
-	unsigned long long int td = 1;
-	while (true)
-	{
-		if (t_register[td] == 0)
-		{
-			t_register[td] = 1;
-		}
-		else
-		{
-			delete[] t_register;
-			return d;
-		}
-		d++;
-		td = (td * m_s0[n]) % y;
-	}
-}
-
-unsigned long long int ime::m_td(unsigned long long int n, unsigned long long int y)
-{
-	bool* t_register = new bool[y];
-	memset(t_register, 0, y);
-
-	unsigned long long int d = 0;
-	unsigned long long int td = 1;
-	while (true)
-	{
-		if (t_register[td] == 0)
-		{
-			t_register[td] = 1;
-		}
-		else
-		{
-			delete[] t_register;
-			return td;
-		}
-		d++;
-		td = (td * m_s0[n]) % y;
-	}
-}
-
-unsigned long long int ime::m_o(unsigned long long int n, unsigned long long int y, unsigned long long int td)
-{
-
-	unsigned long long int o = 0;
-	unsigned long long int to = 1;
-	while (true)
-	{
-		if (to == td)
-		{
-			return o;
-		}
-
-		o++;
-		to = (to * m_s0[n]) % y;
-	}
-}
-
 //main
 unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long int y)
 {
@@ -162,12 +80,12 @@ unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long i
 	//if sn = smax
 	if (n == m_s0.size() - 1)
 	{
-		std::cout << "smax" << std::endl;
+		//std::cout << "smax" << std::endl;
 		return m_s0[n] % y;
 	}
 
 	//if sn+1 =< y
-	if (m_ime_soe_int(n + 1, y))
+	if (m_sn_soe_int(n + 1, y))
 	{
 		//std::cout << "sn+1 =< y" << std::endl;
 		return m_powmod(m_s0[n], m_sn(n + 1), y);
@@ -210,14 +128,37 @@ unsigned long long int ime::m_mod(unsigned long long int n, unsigned long long i
 	
 	//l
 	unsigned long long int l = d - o;
+	unsigned long long int mo = o % l;
 
 	//recursion
 	unsigned long long int mw = m_mod(n + 1, l);
 
-	unsigned long long int tw = m_mw_tw(n, mw, o, d, l, y);
+	//mw -> tw
+	unsigned long long int w;
+
+	if (mw >= mo)
+	{
+		w = o + mw - mo;
+	}
+	else
+	{
+		w = (d + mw) - mo;
+	}
+
+	unsigned long long int tw = m_powmod(m_s0[n], w, y);
 
 	return tw;
-
+	
+	/*
+	for (unsigned long long int w = o; w < d; w++)
+	{
+		if (mw == w % l)
+		{
+			unsigned long long int tw = m_powmod(m_s0[n], w, y);
+			return tw;
+		}
+	}
+	*/
 }
 
 //public
