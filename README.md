@@ -1,5 +1,11 @@
 # mame
 ## Modular Arithmetic with Multiple Exponents
+---
+
+## about
+This originates from a school project, where we had to find prime factors of a huge number written with multible exponents. I thougth writing code which would work for all numbers with multible exponents, would be a usefull thing.
+
+## usage
 
 ---
 
