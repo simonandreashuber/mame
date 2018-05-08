@@ -1,7 +1,7 @@
 # Modular Arithmetic with Multiple Exponents
 
 ### about
-This originates from a school project, where we had to find prime factors of a huge number written with multible exponents. I thougth writing code which would work for all numbers with multible exponents, would be a usefull thing.
+This originates from a school project, where we had to find prime factors of a huge number written with multible exponents. In [this repository](https://github.com/simonandreashuber/mame) you can just find the tools I created to solve my task. In the [Pool_Zahlentheorie_Aufgabe_20](https://github.com/simonandreashuber/Pool_Zahlentheorie_Aufgabe_20) repository
 
 ### usage
 create an ```ime``` (Integer with Multible Exponents) like this: ```ime example({2,3,7});```. (example = 2^3^7)
