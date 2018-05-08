@@ -6,7 +6,7 @@ This originates from a school project, where we had to find prime factors of a h
 ### usage
 create an ```ime``` (Integer with Multible Exponents) like this: ```ime example({2,3,7});```. (example = 2^3^7)
 
-calculate mod like this: ```example % 1999``` or this ```example.mod(1999)```.
+calculate mod like this: ```example % 1999``` or ```example.mod(1999)```.
 
 ---
 
