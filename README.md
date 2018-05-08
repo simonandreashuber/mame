@@ -6,15 +6,13 @@ This originates from a school project, where we had to find prime factors of a h
 ### usage
 create: 
 ```C++
-ime example({2,3,7}); //2^3^7
+ime reileen({2,3,7}); //2^3^7
 ```
 
 calculate:
 ```C++
-example % 1999
-``` 
-```C++
-example.mod(1999)
+reileen % 1999
+reileen.mod(1999)
 ```
 
 ---
