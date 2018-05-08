@@ -4,12 +4,11 @@
 This originates from a school project, where we had to find prime factors of a huge number written with multible exponents. In [this repository](https://github.com/simonandreashuber/mame) you can just find the tools I created to solve my task. I use these tools in the [Pool_Zahlentheorie_Aufgabe_20](https://github.com/simonandreashuber/Pool_Zahlentheorie_Aufgabe_20) repository, there you can find example code.
 
 ### usage
-create: 
+#### create: 
 ```C++
 ime reileen({2,3,7}); //2^3^7
 ```
-
-calculate:
+#### calculate:
 ```C++
 reileen % 1999
 reileen.mod(1999)
