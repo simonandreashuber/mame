@@ -1,18 +1,18 @@
 #include "mane.h"
 
 //private
-unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long long int expo, unsigned long long int devisor) const/*base^expo mod devisor*/
+unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long long int expo, unsigned long long int devisor) const /*c20*/ /*base^expo mod devisor*/
 {
 
 	base %= devisor;
 	unsigned long long int result = 1;
 
 	while (expo > 0) {
-		if (expo & 1)
+		if (expo & 1) /*c21*/
 		{
 			result = (result * base) % devisor;
 		}
-		base = (base * base) % devisor;
+		base = (base * base) % devisor; /*c22*/
 		expo >>= 1;
 	}
 
@@ -23,14 +23,14 @@ unsigned long long int ime::m_powmod(unsigned long long int base, unsigned long 
 	*/
 }
 
-double ime::m_log(const double& base, const double& antilog) const
+double ime::m_log(const double& base, const double& antilog) const /*c9*/
 {
 	//log with custom base
 	double ret_log = log(antilog) / log(base);
 	return ret_log;
 }
 
-bool ime::m_sn_se_int(unsigned long long int sn_index, const unsigned long long int& integer) const
+bool ime::m_sn_se_int(unsigned long long int sn_index, const unsigned long long int& integer) const /*c10*/
 {
 	//sn <= interger
 	double int_log = integer;
@@ -46,7 +46,7 @@ bool ime::m_sn_se_int(unsigned long long int sn_index, const unsigned long long 
 	return true;
 }
 
-unsigned long long int ime::m_pow(const unsigned long long int& base,const unsigned long long int& expo) const/*base^expo to int*/
+unsigned long long int ime::m_pow(const unsigned long long int& base,const unsigned long long int& expo) const /*c11*/
 {
 	unsigned long long int power = 1;
 	for (unsigned long long int i = 0; i < expo; i++)
@@ -56,7 +56,7 @@ unsigned long long int ime::m_pow(const unsigned long long int& base,const unsig
 	return power;
 }
 
-unsigned long long int ime::m_sn(const unsigned long long int& sn_index) const/*sn to interger*/
+unsigned long long int ime::m_sn(const unsigned long long int& sn_index) const /*c12*/
 {
 	unsigned long long int sn = 1;
 	for (unsigned long long int n = m_s0.size() - 1; n > sn_index; n--)
@@ -67,35 +67,35 @@ unsigned long long int ime::m_sn(const unsigned long long int& sn_index) const/*
 	return sn;
 }
 
-unsigned long long int ime::m_mod(unsigned long long int n, const unsigned long long int& y) const
+unsigned long long int ime::m_mod(unsigned long long int n, const unsigned long long int& y) const /*c5*/
 {
 	//if y == 0 then: integer = 0 mod 1
-	if (y == 1)
+	if (y == 1) /*c6*/
 	{
 		return 0;
 	}
 
 	//if sn = smax
-	if (n == m_s0.size() - 1)
+	if (n == m_s0.size() - 1) /*c7*/
 	{
 		return m_s0[n] % y;
 	}
 
 	//if sn+1 =< y
-	if (m_sn_se_int(n + 1, y))
+	if (m_sn_se_int(n + 1, y)) /*c8*/
 	{
-		return m_powmod(m_s0[n], m_sn(n + 1), y + 100); //the 100 are just for savety, bacause of rounding errors
+		return m_powmod(m_s0[n], m_sn(n + 1), y + 100); /*c13*/ //the 100 are just for savety, bacause of rounding errors
 	}
 
 	//d and td
-	bool* t_register = new bool[y];
+	bool* t_register = new bool[y]; /*c15*/
 	memset(t_register, 0, y);
 
 	unsigned long long int d = 0;
 	unsigned long long int td = 1;
 	while (true)
 	{
-		if (t_register[td] == 0)
+		if (t_register[td] == 0) /*c16*/
 		{
 			t_register[td] = 1;
 		}
@@ -113,7 +113,7 @@ unsigned long long int ime::m_mod(unsigned long long int n, const unsigned long 
 	unsigned long long int to = 1;
 	while (true)
 	{
-		if (to == td)
+		if (to == td) /*c14*/
 		{
 			break;
 		}
@@ -132,13 +132,13 @@ unsigned long long int ime::m_mod(unsigned long long int n, const unsigned long 
 	//mw -> tw
 	unsigned long long int w;
 
-	if (mw >= mo)
+	if (mw >= mo) /*c17*/
 	{
-		w = o + mw - mo;
+		w = o + mw - mo; /*c18*/
 	}
 	else
 	{
-		w = d + mw - mo;
+		w = d + mw - mo; /*c19*/
 	}
 
 	unsigned long long int tw = m_powmod(m_s0[n], w, y);
@@ -148,37 +148,15 @@ unsigned long long int ime::m_mod(unsigned long long int n, const unsigned long 
 }
 
 //public
-ime::ime(std::vector<unsigned long long int> expo_list)
+ime::ime(std::vector<unsigned long long int> expo_list) /*c2*/
 	: m_s0(expo_list) {}
 
-unsigned long long int ime::mod(unsigned long long int devisor)
+unsigned long long int ime::mod(unsigned long long int devisor) /*c3*/
 {
 	return m_mod(0, devisor);
 }
 
-unsigned long long int ime::operator%(unsigned long long int devisor)
+unsigned long long int ime::operator%(unsigned long long int devisor) /*c4*/
 {
 	return m_mod(0, devisor);
 }
-
-
-/*
-unsigned long long int base_mod = base % devisor;
-unsigned long long int general_prod = 1;
-
-while (expo > 0)
-{
-unsigned long long int partial_prod = base_mod;
-unsigned long long int power_subtrahend = 1;
-
-while (expo >= power_subtrahend << 1)
-{
-partial_prod = (partial_prod*partial_prod) % devisor;
-power_subtrahend = power_subtrahend << 1;
-}
-general_prod = (partial_prod*general_prod) % devisor;
-expo = expo - power_subtrahend;
-}
-
-return general_prod;
-*/

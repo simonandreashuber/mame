@@ -2,10 +2,10 @@
 #include <vector>
 #include <cmath>
 
-class ime /*c00*/
+class ime /*c0*/
 {
 private:
-	std::vector<unsigned long long int> m_s0; /*c01*/
+	std::vector<unsigned long long int> m_s0; /*c1*/
 
 	unsigned long long int m_powmod(unsigned long long int base, unsigned long long int expo, unsigned long long int devisor) const; //tested, range: root(base, devisor), max(expo)
 
