@@ -10,8 +10,8 @@ This originates from a school project, where we had to find prime factors of a h
 ime reileen({2,3,7}); //2^3^7
 
 //calculate:
-reileen % 1999
-reileen.mod(1999)
+reileen % 1999;
+reileen.mod(1999);
 ```
 
 ---
