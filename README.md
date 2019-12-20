@@ -13,7 +13,6 @@ ime reileen({2,3,7}); //2^3^7
 reileen % 1999;
 reileen.mod(1999);
 ```
----
 
 ## License & Copyright
 This Project is licensed under the [MIT License](LICENSE).
