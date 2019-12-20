@@ -13,12 +13,6 @@ ime reileen({2,3,7}); //2^3^7
 reileen % 1999;
 reileen.mod(1999);
 ```
-
----
-
-## Questions & Feedback
-Direct your questions to: simon.huber17@gmail.com
-
 ---
 
 ## License & Copyright
