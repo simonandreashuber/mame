@@ -1,7 +1,7 @@
 # Modular Arithmetic with Multiple Exponents
 
 ### about
-This originates from a school project, where we had to find prime factors of a huge number written with multible exponents. In [this repository](https://github.com/simonandreashuber/mame) you can just find the tools I created to solve my task. I use these tools in the [Pool_Zahlentheorie_Aufgabe_20](https://github.com/simonandreashuber/Pool_Zahlentheorie_Aufgabe_20) repository, there you can find example code.
+In [this repository](https://github.com/simonandreashuber/mame) you can find the tools to do modular arithmetics for numbers written with multible exponents, where it would be infeasible to calculate the result with conventional methods.
 
 ### usage
 
