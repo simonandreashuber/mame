@@ -1,7 +1,7 @@
 # Modular Arithmetic with Multiple Exponents
 
 ### about
-In this repository you can find the tools to do modular arithmetics with numbers written as multible exponents, where it would be infeasible to calculate the result with conventional methods.
+In this repository you can find the tools to do modular arithmetics with numbers written as multible exponents, where it would be infeasible to calculate the result without computer assistance.
 
 ### usage
 
